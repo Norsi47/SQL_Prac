@@ -18,7 +18,7 @@ import com.example.sql_prac.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
-
+//testing
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
