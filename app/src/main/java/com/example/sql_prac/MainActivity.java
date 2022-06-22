@@ -18,61 +18,67 @@ import com.example.sql_prac.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Switch;
+import android.widget.Toast;
+
 //testing test
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
-//after git update
-    //testing tes
+    //reference to buttons and other layout
+    Button btn_add, btn_viewAll;
+
+    EditText editName, editAge;
+
+    Switch aSwitchActiveCustomer;
+
+    ListView listViewCustomerList;
+
+    //this starts the application
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle saveInstanceState) {
+        super.onCreate(saveInstanceState);
+        setContentView(R.layout.activity_main);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        btn_add = findViewById(R.id.btn_add);
+        btn_viewAll = findViewById(R.id.btn_viewAll);
+        editName = findViewById(R.id.edit_name);
+        editAge = findViewById(R.id.edit_Age);
+        aSwitchActiveCustomer = findViewById(R.id.switch_active);
+        listViewCustomerList = findViewById(R.id.listView_cutomerList);
 
-        setSupportActionBar(binding.toolbar);
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
+        //this is the button click listener, logic to add and view all listeners
+        btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+             //using try and catch to see if error comes up (similar to if else statement)
+                //better option in this case, will prevent app from crashing
+                try {
+                    //numbers put in here are for test
+                    CustomerModel customerModel = new CustomerModel(-1, editName.getText().toString(), Integer.parseInt(editAge.getText().toString()),
+                            aSwitchActiveCustomer.isChecked());
+                    //to test if button works
+                    Toast.makeText(MainActivity.this, customerModel.toString() , Toast.LENGTH_LONG).show();
+
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "error creating customer" , Toast.LENGTH_LONG).show();
+                }
+
+
+
             }
         });
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+        btn_viewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+                //same thing
+                Toast.makeText(MainActivity.this, "View all button", Toast.LENGTH_LONG).show();
+            }
+        });
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
     }
 }

@@ -10,4 +10,8 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="CustomerName">Customer Name</string>
+    <string name="customerAge">Age</string>
+    <string name="switchActive">ActiveCutomer</string>
+    <string name="btnView">View</string>
+    <string name="btnAdd">Add</string>
 </resources>
