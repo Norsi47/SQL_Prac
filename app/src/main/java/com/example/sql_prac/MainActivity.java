@@ -1,28 +1,14 @@
 package com.example.sql_prac;
 
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.View;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.work.Data;
-
-import com.example.sql_prac.databinding.ActivityMainBinding;
-
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 //testing test
 public class MainActivity extends AppCompatActivity {
@@ -42,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_main);
 
+        //should add customer whenever button add is clicked
         btn_add = findViewById(R.id.btn_add);
         btn_viewAll = findViewById(R.id.btn_viewAll);
         editName = findViewById(R.id.edit_name);
@@ -53,21 +40,30 @@ public class MainActivity extends AppCompatActivity {
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             //using try and catch to see if error comes up (similar to if else statement)
+                //using try and catch to see if error comes up (similar to if else statement)
                 //better option in this case, will prevent app from crashing
+
+                CustomerModel customerModel;
                 try {
                     //numbers put in here are for test
-                    CustomerModel customerModel = new CustomerModel(-1, editName.getText().toString(), Integer.parseInt(editAge.getText().toString()),
+                    customerModel = new CustomerModel(-1, editName.getText().toString(), Integer.parseInt(editAge.getText().toString()),
                             aSwitchActiveCustomer.isChecked());
                     //to test if button works
-                    Toast.makeText(MainActivity.this, customerModel.toString() , Toast.LENGTH_LONG).show();
+                    //this shows up when button is pressed in app
+                    Toast.makeText(MainActivity.this, customerModel.toString(), Toast.LENGTH_LONG).show();
 
                 } catch (Exception e) {
-                    Toast.makeText(MainActivity.this, "error creating customer" , Toast.LENGTH_LONG).show();
+                    //default value to match the one at the top of try
+                    customerModel = new CustomerModel(-1, "error", 0, false);
+                    Toast.makeText(MainActivity.this, "error creating customer", Toast.LENGTH_LONG).show();
+
                 }
 
-
-
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
+                //inserting customer
+                boolean success = dataBaseHelper.addOne(customerModel);
+                //should print out true or false in app
+                Toast.makeText(MainActivity.this, "Success= " +success, Toast.LENGTH_LONG).show();
             }
         });
 
