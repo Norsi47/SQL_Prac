@@ -2,10 +2,14 @@ package com.example.sql_prac;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
@@ -40,6 +44,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public boolean addOne(CustomerModel customerModel) {
         //the .getWritable came from the extended class SQLOpenHelper
+        //writable data
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         /*this stores data in pairs
          e.g contentValues.put("name", value)
@@ -62,5 +67,44 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
     }
+    //method to "SELECT all records from the table"
+    public List<CustomerModel> getAllCustomer() {
+        List<CustomerModel> customerModelList = new ArrayList<>();
+        //SELECT DATA from database
+
+        String queryString = "SELECT * FROM " + CUSTOMER_TABLE;
+
+        //an empty list that gets readable data saved
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(queryString, null);
+        //this will move to the first value if true
+        if (cursor.moveToFirst()) {
+            /*loop through result set if there are customers
+            * create new customer objects
+            * then return list*/
+            do {
+                //items from database
+                //the numbers in () are the columns in the data base
+                int customerID = cursor.getInt(0);
+                String customerName = cursor.getString(1);
+                int customerAge = cursor.getInt(2);
+                //Ternary Operator, similar to if else statement
+                boolean customerActive = cursor.getInt(3) == 1 ? true: false;
+
+                CustomerModel newCustomer = new CustomerModel(customerID, customerName, customerAge, customerActive);
+                customerModelList.add(newCustomer);
+
+            }while (cursor.moveToFirst());
+
+        } else {
+        //failer, not to do anything to the list
+        }
+        //closes cursor  when dbd is done, so others can use it
+        //sql lite does this
+        cursor.close();
+        sqLiteDatabase.close();
+        return customerModelList;
+    }
+
 
 }
