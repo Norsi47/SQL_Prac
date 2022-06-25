@@ -106,5 +106,5 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return customerModelList;
     }
 
-
+//adding for streak
 }
