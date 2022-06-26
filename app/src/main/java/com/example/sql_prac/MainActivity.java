@@ -10,6 +10,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //testing test
 public class MainActivity extends AppCompatActivity {
 
@@ -37,11 +40,7 @@ public class MainActivity extends AppCompatActivity {
         listViewCustomerList = findViewById(R.id.listView_cutomerList);
 
         //this is the button click listener, logic to add and view all listeners
-        btn_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //using try and catch to see if error comes up (similar to if else statement)
-                //better option in this case, will prevent app from crashing
+        btn_add.setOnClickListener((v){
 
                 CustomerModel customerModel;
                 try {
@@ -64,16 +63,17 @@ public class MainActivity extends AppCompatActivity {
                 boolean success = dataBaseHelper.addOne(customerModel);
                 //should print out true or false in app
                 Toast.makeText(MainActivity.this, "Success= " +success, Toast.LENGTH_LONG).show();
-            }
+
         });
 
-        btn_viewAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btn_viewAll.setOnClickListener((v) {
+
+            DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
+        List<CustomerModel> customerModelList = dataBaseHelper.getAllCustomer ;
 
                 //same thing
                 Toast.makeText(MainActivity.this, "View all button", Toast.LENGTH_LONG).show();
-            }
+
         });
 
     }
