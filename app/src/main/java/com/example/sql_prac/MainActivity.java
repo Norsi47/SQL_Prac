@@ -2,6 +2,7 @@ package com.example.sql_prac;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -25,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
     ListView listViewCustomerList;
 
+    ArrayAdapter arrayAdapter;
+    DataBaseHelper dataBaseHelper;
+
     //this starts the application
     @Override
     protected void onCreate(Bundle saveInstanceState) {
@@ -39,8 +43,17 @@ public class MainActivity extends AppCompatActivity {
         aSwitchActiveCustomer = findViewById(R.id.switch_active);
         listViewCustomerList = findViewById(R.id.listView_cutomerList);
 
+        dataBaseHelper = new DataBaseHelper(MainActivity.this);
+
+        //APP OPEN
+        //will create list as soon as app is opened
+      arrayAdapter = new ArrayAdapter <CustomerModel>(MainActivity.this,
+                android.R.layout.simple_expandable_list_item_1, dataBaseHelper.getAllCustomer());
+      listViewCustomerList.setAdapter(arrayAdapter);
+
         //this is the button click listener, logic to add and view all listeners
-        btn_add.setOnClickListener((v){
+        //need to look up wat (v) -> does
+        btn_add.setOnClickListener((v) ->{
 
                 CustomerModel customerModel;
                 try {
@@ -62,17 +75,25 @@ public class MainActivity extends AppCompatActivity {
                 //inserting customer
                 boolean success = dataBaseHelper.addOne(customerModel);
                 //should print out true or false in app
-                Toast.makeText(MainActivity.this, "Success= " +success, Toast.LENGTH_LONG).show();
-
+//                Toast.makeText(MainActivity.this, "Success= " +success, Toast.LENGTH_LONG).show();
+            // ON BTN_ADD
+            arrayAdapter = new ArrayAdapter <CustomerModel>(MainActivity.this,
+                    android.R.layout.simple_expandable_list_item_1, dataBaseHelper.getAllCustomer());
+            listViewCustomerList.setAdapter(arrayAdapter);
         });
 
-        btn_viewAll.setOnClickListener((v) {
+        btn_viewAll.setOnClickListener((v) -> {
 
             DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
-        List<CustomerModel> customerModelList = dataBaseHelper.getAllCustomer ;
+
+        //views all the customer in a neater form on screen compared to Toast
+            // ON VIEW ALL
+            arrayAdapter = new ArrayAdapter <CustomerModel>(MainActivity.this,
+                    android.R.layout.simple_expandable_list_item_1, dataBaseHelper.getAllCustomer());
+            listViewCustomerList.setAdapter(arrayAdapter);
 
                 //same thing
-                Toast.makeText(MainActivity.this, "View all button", Toast.LENGTH_LONG).show();
+//                Toast.makeText(MainActivity.this, customerModelList.toString(), Toast.LENGTH_LONG).show();
 
         });
 

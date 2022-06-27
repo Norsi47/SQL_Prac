@@ -93,8 +93,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
                 CustomerModel newCustomer = new CustomerModel(customerID, customerName, customerAge, customerActive);
                 customerModelList.add(newCustomer);
-
-            }while (cursor.moveToFirst());
+            //move through database one at a time
+            }while (cursor.moveToNext());
 
         } else {
         //failer, not to do anything to the list
