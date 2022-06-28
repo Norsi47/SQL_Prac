@@ -2,6 +2,7 @@ package com.example.sql_prac;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,10 +47,8 @@ public class MainActivity extends AppCompatActivity {
         dataBaseHelper = new DataBaseHelper(MainActivity.this);
 
         //APP OPEN
-        //will create list as soon as app is opened
-      arrayAdapter = new ArrayAdapter <CustomerModel>(MainActivity.this,
-                android.R.layout.simple_expandable_list_item_1, dataBaseHelper.getAllCustomer());
-      listViewCustomerList.setAdapter(arrayAdapter);
+        //will show created list as soon as app is opened
+        showCustomerOnListView(dataBaseHelper);
 
         //this is the button click listener, logic to add and view all listeners
         //need to look up wat (v) -> does
@@ -62,12 +61,12 @@ public class MainActivity extends AppCompatActivity {
                             aSwitchActiveCustomer.isChecked());
                     //to test if button works
                     //this shows up when button is pressed in app
-                    Toast.makeText(MainActivity.this, customerModel.toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, customerModel.toString(), Toast.LENGTH_SHORT).show();
 
                 } catch (Exception e) {
                     //default value to match the one at the top of try
+                    Toast.makeText(MainActivity.this, "error creating customer", Toast.LENGTH_SHORT).show();
                     customerModel = new CustomerModel(-1, "error", 0, false);
-                    Toast.makeText(MainActivity.this, "error creating customer", Toast.LENGTH_LONG).show();
 
                 }
 
@@ -75,11 +74,10 @@ public class MainActivity extends AppCompatActivity {
                 //inserting customer
                 boolean success = dataBaseHelper.addOne(customerModel);
                 //should print out true or false in app
-//                Toast.makeText(MainActivity.this, "Success= " +success, Toast.LENGTH_LONG).show();
             // ON BTN_ADD
-            arrayAdapter = new ArrayAdapter <CustomerModel>(MainActivity.this,
-                    android.R.layout.simple_expandable_list_item_1, dataBaseHelper.getAllCustomer());
-            listViewCustomerList.setAdapter(arrayAdapter);
+                Toast.makeText(MainActivity.this, "Success= " + success, Toast.LENGTH_SHORT).show();
+
+
         });
 
         btn_viewAll.setOnClickListener((v) -> {
@@ -88,14 +86,31 @@ public class MainActivity extends AppCompatActivity {
 
         //views all the customer in a neater form on screen compared to Toast
             // ON VIEW ALL
-            arrayAdapter = new ArrayAdapter <CustomerModel>(MainActivity.this,
-                    android.R.layout.simple_expandable_list_item_1, dataBaseHelper.getAllCustomer());
-            listViewCustomerList.setAdapter(arrayAdapter);
+           showCustomerOnListView(dataBaseHelper);
 
                 //same thing
 //                Toast.makeText(MainActivity.this, customerModelList.toString(), Toast.LENGTH_LONG).show();
 
         });
 
+
+        //listens when being clicked
+        listViewCustomerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                CustomerModel customerModel = (CustomerModel) adapterView.getItemAtPosition(i);
+                dataBaseHelper.deleteOne(customerModel);
+                showCustomerOnListView(dataBaseHelper);
+                Toast.makeText(MainActivity.this, "Deleted " + customerModel.toString(), Toast.LENGTH_SHORT).show();
+            }
+        } );
+    }
+
+
+    //was refactored from the top , then extract method
+    private void showCustomerOnListView (DataBaseHelper dataBaseHelper1) {
+        arrayAdapter = new ArrayAdapter<CustomerModel>(MainActivity.this,
+                  android.R.layout.simple_expandable_list_item_1, dataBaseHelper1.getAllCustomer());
+        listViewCustomerList.setAdapter(arrayAdapter);
     }
 }

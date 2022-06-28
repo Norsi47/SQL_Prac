@@ -64,9 +64,31 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         else {
             return true;
         }
+    }
+
+    public boolean deleteOne(CustomerModel customerModel) {
+        /*if customerModel is found in database, delete it and then return true
+        * if not found return false*/
+
+        //writable because we delete from it
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        //delete anyone with same id number
+        String queryString = "DELETE FROM " + CUSTOMER_TABLE + " WHERE "
+                + COLUMN_ID + " = " + customerModel.getId();
+        //what does rawQuery mean?
+        Cursor cursor = sqLiteDatabase.rawQuery(queryString, null);
+
+        //used alt enter to make "create local variable" for cursor
+        if (cursor.moveToFirst()) {
+            return true;
+        }
+        else {
+            return false;
+        }
 
 
     }
+
     //method to "SELECT all records from the table"
     public List<CustomerModel> getAllCustomer() {
         List<CustomerModel> customerModelList = new ArrayList<>();
@@ -106,5 +128,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return customerModelList;
     }
 
-//adding for streak
+//now learn how to search by database
+    //add search on UI
+    //List will show only users that were selected and not the entire users
 }
