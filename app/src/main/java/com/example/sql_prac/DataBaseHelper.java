@@ -85,9 +85,19 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         else {
             return false;
         }
+    }
 
+    public List<CustomerModel> searchByUserName(CustomerModel customerModel) {
+        /* Go into customer model and search by user name */
+        //do I need to save the customer in an array list first?
+        List<CustomerModel> customerModelList = new ArrayList<>();
+
+        //reading what is in the database
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 
     }
+
+
 
     //method to "SELECT all records from the table"
     public List<CustomerModel> getAllCustomer() {
