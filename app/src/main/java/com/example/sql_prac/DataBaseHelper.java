@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -87,14 +88,37 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public List<CustomerModel> searchByUserName(CustomerModel customerModel) {
+    public CustomerModel searchByUserName() {
         /* Go into customer model and search by user name */
         //do I need to save the customer in an array list first?
-        List<CustomerModel> customerModelList = new ArrayList<>();
+//        List<CustomerModel> customerModelList = new ArrayList<>();
+    CustomerModel customerModel = new CustomerModel();
+
+
+        //sql to select all names in customer table
+        String queryString = "SELECT " + COLUMN_CUSTOMER_NAME + " FROM " +
+                CUSTOMER_TABLE;
 
         //reading what is in the database
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(queryString, null);
 
+        //move to first value
+            if (cursor.moveToFirst()) {
+                do {
+                   String customerName = cursor.getString(1);
+
+                 customerModel.getName();
+
+                } while (cursor.moveToNext());
+
+            } else {
+
+            }
+            cursor.close();
+            sqLiteDatabase.close();
+
+        return customerModel;
     }
 
 

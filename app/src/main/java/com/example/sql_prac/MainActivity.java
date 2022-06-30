@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayAdapter arrayAdapter;
     DataBaseHelper dataBaseHelper;
+
+    SearchView searchView;
 
     //this starts the application
     @Override
