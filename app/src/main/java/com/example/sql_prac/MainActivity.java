@@ -1,6 +1,8 @@
 package com.example.sql_prac;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,11 +16,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
 
 //testing test
-public class MainActivity extends AppCompatActivity {
+//implemented search view to add search 1
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
+    //comes up in code part in UI, so it is needed to be called here to be used (most times)
     //reference to buttons and other layout
     Button btn_add, btn_viewAll;
 
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         editAge = findViewById(R.id.edit_Age);
         aSwitchActiveCustomer = findViewById(R.id.switch_active);
         listViewCustomerList = findViewById(R.id.listView_cutomerList);
+        searchView = findViewById(R.id.searchBox);
 
         dataBaseHelper = new DataBaseHelper(MainActivity.this);
 
@@ -55,30 +60,30 @@ public class MainActivity extends AppCompatActivity {
 
         //this is the button click listener, logic to add and view all listeners
         //need to look up wat (v) -> does
-        btn_add.setOnClickListener((v) ->{
+        btn_add.setOnClickListener((v) -> {
 
-                CustomerModel customerModel;
-                try {
-                    //numbers put in here are for test
-                    customerModel = new CustomerModel(-1, editName.getText().toString(), Integer.parseInt(editAge.getText().toString()),
-                            aSwitchActiveCustomer.isChecked());
-                    //to test if button works
-                    //this shows up when button is pressed in app
-                    Toast.makeText(MainActivity.this, customerModel.toString(), Toast.LENGTH_SHORT).show();
+            CustomerModel customerModel;
+            try {
+                //numbers put in here are for test
+                customerModel = new CustomerModel(-1, editName.getText().toString(), Integer.parseInt(editAge.getText().toString()),
+                        aSwitchActiveCustomer.isChecked());
+                //to test if button works
+                //this shows up when button is pressed in app
+                Toast.makeText(MainActivity.this, customerModel.toString(), Toast.LENGTH_SHORT).show();
 
-                } catch (Exception e) {
-                    //default value to match the one at the top of try
-                    Toast.makeText(MainActivity.this, "error creating customer", Toast.LENGTH_SHORT).show();
-                    customerModel = new CustomerModel(-1, "error", 0, false);
+            } catch (Exception e) {
+                //default value to match the one at the top of try
+                Toast.makeText(MainActivity.this, "error creating customer", Toast.LENGTH_SHORT).show();
+                customerModel = new CustomerModel(-1, "error", 0, false);
 
-                }
+            }
 
-                DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
-                //inserting customer
-                boolean success = dataBaseHelper.addOne(customerModel);
-                //should print out true or false in app
+            DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
+            //inserting customer
+            boolean success = dataBaseHelper.addOne(customerModel);
+            //should print out true or false in app
             // ON BTN_ADD
-                Toast.makeText(MainActivity.this, "Success= " + success, Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Success= " + success, Toast.LENGTH_SHORT).show();
 
 
         });
@@ -87,11 +92,11 @@ public class MainActivity extends AppCompatActivity {
 
             DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
 
-        //views all the customer in a neater form on screen compared to Toast
+            //views all the customer in a neater form on screen compared to Toast
             // ON VIEW ALL
-           showCustomerOnListView(dataBaseHelper);
+            showCustomerOnListView(dataBaseHelper);
 
-                //same thing
+            //same thing
 //                Toast.makeText(MainActivity.this, customerModelList.toString(), Toast.LENGTH_LONG).show();
 
         });
@@ -106,14 +111,45 @@ public class MainActivity extends AppCompatActivity {
                 showCustomerOnListView(dataBaseHelper);
                 Toast.makeText(MainActivity.this, "Deleted " + customerModel.toString(), Toast.LENGTH_SHORT).show();
             }
-        } );
+        });
     }
 
 
     //was refactored from the top , then extract method
-    private void showCustomerOnListView (DataBaseHelper dataBaseHelper1) {
+    private void showCustomerOnListView(DataBaseHelper dataBaseHelper1) {
         arrayAdapter = new ArrayAdapter<CustomerModel>(MainActivity.this,
-                  android.R.layout.simple_expandable_list_item_1, dataBaseHelper1.getAllCustomer());
+                android.R.layout.simple_expandable_list_item_1, dataBaseHelper1.getAllCustomer());
         listViewCustomerList.setAdapter(arrayAdapter);
     }
+
+//    public void userNameSearch(DataBaseHelper dataBaseHelper) {
+//        searchView.setOnClickListener();
+//
+//    }
+    //for search
+
+    //for search
+    public void searchCustomer() {
+        //already done in .xml
+//        searchView.setQueryHint(getResources().getString(R.string.sear));
+        //needed for when you click on search
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.isEmpty())
+
+                return false;
+            }
+        });
+    }
+
+
+
+
+
 }
