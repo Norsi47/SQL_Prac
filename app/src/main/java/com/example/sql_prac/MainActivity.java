@@ -2,6 +2,7 @@ package com.example.sql_prac;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,13 +15,14 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
 //testing test
 //implemented search view to add search 1
-public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
+public class MainActivity extends AppCompatActivity{
 
     //comes up in code part in UI, so it is needed to be called here to be used (most times)
     //reference to buttons and other layout
@@ -129,14 +131,23 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     //for search
 
     //for search
-    public void searchCustomer() {
-        //already done in .xml
-//        searchView.setQueryHint(getResources().getString(R.string.sear));
+    public boolean searchCustomer(Menu menu) {
+        //inflate menuwith items using inflator
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_main, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.searchBox);
+        searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+
+
+
         //needed for when you click on search
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
+            public boolean onQueryTextSubmit(String query) {
+                if () {
+
+                }
             }
 
             @Override
