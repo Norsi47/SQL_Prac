@@ -17,9 +17,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
 
-import java.util.ArrayList;
-import java.util.Locale;
-
 //testing test
 //implemented search view to add search 1
 public class MainActivity extends AppCompatActivity{
@@ -145,18 +142,24 @@ public class MainActivity extends AppCompatActivity{
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if () {
+                CustomerModel customerModel = new CustomerModel();
 
+                //if name is in search query
+                if (customerModel.getName() == query) {
+                    arrayAdapter.getFilter().filter(query);
+                } else {
+                    Toast.makeText(MainActivity.this, "Not Found", Toast.LENGTH_LONG).show();
                 }
+                return false;
             }
-
+            //when use is typing in search filter
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (newText.isEmpty())
-
+                arrayAdapter.getFilter().filter(newText);
                 return false;
             }
         });
+        return true ;
     }
 
 

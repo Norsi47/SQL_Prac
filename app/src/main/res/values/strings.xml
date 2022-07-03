@@ -15,4 +15,5 @@
     <string name="btnView">View</string>
     <string name="btnAdd">Add</string>
     <string name="Search_Here">Search</string>
+    <string name="searchHere">searching...</string>
 </resources>
