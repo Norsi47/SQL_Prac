@@ -88,7 +88,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean searchByUserName(CustomerModel customerModel) {
+    public void searchByUserName(CustomerModel customerModel) {
         /* Go into customer model and search by user name */
         //do I need to save the customer in an array list first?
 
@@ -100,15 +100,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(queryString, null);
 
-        //move to first value
-        if (cursor.moveToFirst()) {
-            return true;
+       //while loop
+        StringBuffer stringBuffer = new StringBuffer();
+        while (cursor.moveToNext()) {
+            stringBuffer.append("ID" + cursor.getInt(0) + "\n");
+            stringBuffer.append("Name" + cursor.getString(1) + "\n");
+            stringBuffer.append("Age" + cursor.getInt(2) + "\n");
+
         }
-        else {
-            return false;
-        }
-//            cursor.close();
-//            sqLiteDatabase.close();
+        cursor.close();
+        sqLiteDatabase.close();
+
+
     }
 
 

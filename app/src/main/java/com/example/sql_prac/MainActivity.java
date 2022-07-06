@@ -17,13 +17,16 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //testing test
 //implemented search view to add search 1
 public class MainActivity extends AppCompatActivity{
 
     //comes up in code part in UI, so it is needed to be called here to be used (most times)
     //reference to buttons and other layout
-    Button btn_add, btn_viewAll;
+    Button btn_add, btn_viewAll, searchButton;
 
     EditText editName, editAge;
 
@@ -34,7 +37,6 @@ public class MainActivity extends AppCompatActivity{
     ArrayAdapter arrayAdapter;
     DataBaseHelper dataBaseHelper;
 
-    SearchView searchView;
 
     //this starts the application
     @Override
@@ -49,7 +51,9 @@ public class MainActivity extends AppCompatActivity{
         editAge = findViewById(R.id.edit_Age);
         aSwitchActiveCustomer = findViewById(R.id.switch_active);
         listViewCustomerList = findViewById(R.id.listView_cutomerList);
-        searchView = findViewById(R.id.searchBox);
+        //for search
+        searchButton = findViewById(R.id.searchButton);
+
 
         dataBaseHelper = new DataBaseHelper(MainActivity.this);
 
@@ -102,6 +106,7 @@ public class MainActivity extends AppCompatActivity{
 
 
         //listens when being clicked
+        //adapterview dsiplays items in the adapter
         listViewCustomerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -109,6 +114,21 @@ public class MainActivity extends AppCompatActivity{
                 dataBaseHelper.deleteOne(customerModel);
                 showCustomerOnListView(dataBaseHelper);
                 Toast.makeText(MainActivity.this, "Deleted " + customerModel.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //for search
+        //using new View to see all the names clicked on
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            //when search is clicked get customer name
+            public void onClick(View view) {
+                CustomerModel customerModel = new CustomerModel();
+                //to get customer name
+                customerModel.getName();
+                dataBaseHelper.searchByUserName(customerModel);
+                Toast.makeText(MainActivity.this, "Found Name " + customerModel.toString(), Toast.LENGTH_LONG).show();
+
             }
         });
     }
@@ -121,46 +141,10 @@ public class MainActivity extends AppCompatActivity{
         listViewCustomerList.setAdapter(arrayAdapter);
     }
 
-//    public void userNameSearch(DataBaseHelper dataBaseHelper) {
-//        searchView.setOnClickListener();
-//
-//    }
-    //for search
-
-    //for search
-    public boolean searchCustomer(Menu menu) {
-        //inflate menuwith items using inflator
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_main, menu);
-
-        MenuItem menuItem = menu.findItem(R.id.searchBox);
-        searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
 
 
 
-        //needed for when you click on search
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                CustomerModel customerModel = new CustomerModel();
 
-                //if name is in search query
-                if (customerModel.getName() == query) {
-                    arrayAdapter.getFilter().filter(query);
-                } else {
-                    Toast.makeText(MainActivity.this, "Not Found", Toast.LENGTH_LONG).show();
-                }
-                return false;
-            }
-            //when use is typing in search filter
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                arrayAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-        return true ;
-    }
 
 
 

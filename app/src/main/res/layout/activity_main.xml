@@ -44,6 +44,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
+        android:minHeight="48dp"
         android:text="@string/switchActive"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -84,20 +85,18 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_viewAll"
         app:layout_constraintVertical_bias="0.302" />
 
-    <SearchView
-        android:id="@+id/searchBox"
-        android:layout_width="176dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:queryHint="@string/searchHere"
-        android:visibility="visible"
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="103dp"
+        android:text="@string/searchHere"
+        app:layout_constraintBottom_toTopOf="@+id/btn_add"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.733"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/switch_active"
         app:layout_constraintTop_toBottomOf="@+id/edit_Age"
-        tools:visibility="visible" />
+        app:layout_constraintVertical_bias="0.385" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

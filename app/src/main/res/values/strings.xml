@@ -16,4 +16,6 @@
     <string name="btnAdd">Add</string>
     <string name="Search_Here">Search</string>
     <string name="searchHere">searching...</string>
+    <string name="search">SearchName</string>
+    <string name="searchButtonTxt">SearchHere</string>
 </resources>
