@@ -10,11 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity{
 
     //comes up in code part in UI, so it is needed to be called here to be used (most times)
     //reference to buttons and other layout
-    Button btn_add, btn_viewAll, searchButton;
+    Button btn_add, btn_viewAll;
 
     EditText editName, editAge;
 
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity{
         aSwitchActiveCustomer = findViewById(R.id.switch_active);
         listViewCustomerList = findViewById(R.id.listView_cutomerList);
         //for search
-        searchButton = findViewById(R.id.searchButton);
+
 
 
         dataBaseHelper = new DataBaseHelper(MainActivity.this);
@@ -117,20 +117,7 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        //for search
-        //using new View to see all the names clicked on
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            //when search is clicked get customer name
-            public void onClick(View view) {
-                CustomerModel customerModel = new CustomerModel();
-                //to get customer name
-                customerModel.getName();
-                dataBaseHelper.searchByUserName(customerModel);
-                Toast.makeText(MainActivity.this, "Found Name " + customerModel.toString(), Toast.LENGTH_LONG).show();
 
-            }
-        });
     }
 
 
@@ -139,6 +126,34 @@ public class MainActivity extends AppCompatActivity{
         arrayAdapter = new ArrayAdapter<CustomerModel>(MainActivity.this,
                 android.R.layout.simple_expandable_list_item_1, dataBaseHelper1.getAllCustomer());
         listViewCustomerList.setAdapter(arrayAdapter);
+    }
+
+    //for search icon to show and work
+
+    public boolean searchButton(Menu menu) {
+        //get the menu.xml file (purple color is the name)
+        getMenuInflater().inflate(R.menu.menu, menu);
+        //get the search icon id
+        MenuItem menuItem = menu.findItem(R.id.search_icon);
+
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //if user types anything in search
+                arrayAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+
+        return super.onCreateOptionsMenu(menu);
+
     }
 
 

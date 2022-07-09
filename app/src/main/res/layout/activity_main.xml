@@ -42,12 +42,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:minHeight="48dp"
         android:text="@string/switchActive"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_Age" />
 
@@ -55,7 +54,7 @@
         android:id="@+id/btn_viewAll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="24dp"
         android:text="@string/btnView"
         app:layout_constraintEnd_toStartOf="@+id/btn_add"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,14 +65,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btnAdd"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_viewAll"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_viewAll"
         app:layout_constraintTop_toTopOf="@+id/btn_viewAll" />
 
     <ListView
         android:id="@+id/listView_cutomerList"
-        android:layout_width="374dp"
-        android:layout_height="377dp"
+        android:layout_width="368dp"
+        android:layout_height="336dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -84,19 +84,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_viewAll"
         app:layout_constraintVertical_bias="0.302" />
-
-    <Button
-        android:id="@+id/searchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="103dp"
-        android:text="@string/searchHere"
-        app:layout_constraintBottom_toTopOf="@+id/btn_add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/switch_active"
-        app:layout_constraintTop_toBottomOf="@+id/edit_Age"
-        app:layout_constraintVertical_bias="0.385" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
