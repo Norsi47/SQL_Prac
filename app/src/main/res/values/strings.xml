@@ -18,4 +18,6 @@
     <string name="searchHere">searching...</string>
     <string name="search">SearchName</string>
     <string name="searchButtonTxt">SearchHere</string>
+    <string name="nextButton">NextPage</string>
+    <string name="BACKBUTTON">MainMenu</string>
 </resources>

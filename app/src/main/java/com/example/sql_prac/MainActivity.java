@@ -1,8 +1,8 @@
 package com.example.sql_prac;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,18 +15,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.view.MenuItemCompat;
-
-import java.util.ArrayList;
-import java.util.List;
 
 //testing test
 //implemented search view to add search 1
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     //comes up in code part in UI, so it is needed to be called here to be used (most times)
     //reference to buttons and other layout
-    Button btn_add, btn_viewAll;
+    Button btn_add, btn_viewAll, nextButton;
 
     EditText editName, editAge;
 
@@ -38,11 +34,31 @@ public class MainActivity extends AppCompatActivity{
     DataBaseHelper dataBaseHelper;
 
 
+    //go back button method
+    private void configureNextButton() {
+        nextButton = (Button) findViewById(R.id.nextActivity);
+        //listener for when button is pressed
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //this will switch to new activity (next page) when clicked
+                // in the () we are stating to from the main class when app is ran
+                //then followed my second activity.class
+                startActivity(new Intent(MainActivity.this, SecondActivity.class));
+            }
+        });
+
+    }
+
+
     //this starts the application
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_main);
+
+        //for next button pressed
+        configureNextButton();
 
         //should add customer whenever button add is clicked
         btn_add = findViewById(R.id.btn_add);
@@ -54,12 +70,15 @@ public class MainActivity extends AppCompatActivity{
         //for search
 
 
-
         dataBaseHelper = new DataBaseHelper(MainActivity.this);
 
         //APP OPEN
         //will show created list as soon as app is opened
+        //returning the method below
         showCustomerOnListView(dataBaseHelper);
+
+
+
 
         //this is the button click listener, logic to add and view all listeners
         //need to look up wat (v) -> does
@@ -127,42 +146,35 @@ public class MainActivity extends AppCompatActivity{
                 android.R.layout.simple_expandable_list_item_1, dataBaseHelper1.getAllCustomer());
         listViewCustomerList.setAdapter(arrayAdapter);
     }
+//shows in next page now
 
     //for search icon to show and work
 
-    public boolean searchButton(Menu menu) {
-        //get the menu.xml file (purple color is the name)
-        getMenuInflater().inflate(R.menu.menu, menu);
-        //get the search icon id
-        MenuItem menuItem = menu.findItem(R.id.search_icon);
-
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                //if user types anything in search
-                arrayAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-
-
-        return super.onCreateOptionsMenu(menu);
-
-    }
-
-
-
-
-
-
-
-
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        //get the menu.xml file (purple color is the name)
+//        getMenuInflater().inflate(R.menu.menu, menu);
+//        //get the search icon id
+//        MenuItem menuItem = menu.findItem(R.id.search_icon);
+//
+//        SearchView searchView = (SearchView) menuItem.getActionView();
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                //if user types anything in search
+//                arrayAdapter.getFilter().filter(newText);
+//                return false;
+//            }
+//        });
+//
+//
+//        return super.onCreateOptionsMenu(menu);
+//
+//    }
 
 
 }
