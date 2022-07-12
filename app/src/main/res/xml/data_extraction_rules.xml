@@ -6,7 +6,8 @@
 <data-extraction-rules>
     <cloud-backup>
         <!-- TODO: Use <include> and <exclude> to control what is backed up.
-        <include .../>
+        <include . might need to get listview from Main class then
+         whenever user searches a name, should start displaying the names../>
         <exclude .../>
         -->
     </cloud-backup>

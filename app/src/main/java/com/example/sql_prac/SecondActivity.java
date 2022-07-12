@@ -9,11 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.MultiAutoCompleteTextView;
 
 public class SecondActivity extends AppCompatActivity {
 
     Button backButton;
     ArrayAdapter arrayAdapter;
+
+    MainActivity mainActivity = new MainActivity();
 
 
     @Override
@@ -45,6 +48,10 @@ public class SecondActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         //get the search icon id
         MenuItem menuItem = menu.findItem(R.id.search_icon);
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(mainActivity);
+        CustomerModel customerModel = new CustomerModel();
+
+//        mainActivity.showCustomerOnListView(dataBaseHelper);
 
         SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -56,7 +63,7 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 //if user types anything in search
-                arrayAdapter.getFilter().filter(newText);
+                dataBaseHelper.searchByUserName(customerModel);
                 return false;
             }
         });

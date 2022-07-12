@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //was refactored from the top , then extract method
-    private void showCustomerOnListView(DataBaseHelper dataBaseHelper1) {
+    public void showCustomerOnListView(DataBaseHelper dataBaseHelper1) {
         arrayAdapter = new ArrayAdapter<CustomerModel>(MainActivity.this,
                 android.R.layout.simple_expandable_list_item_1, dataBaseHelper1.getAllCustomer());
         listViewCustomerList.setAdapter(arrayAdapter);
