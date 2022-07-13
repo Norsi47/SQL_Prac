@@ -9,14 +9,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.MultiAutoCompleteTextView;
+
+import java.util.List;
 
 public class SecondActivity extends AppCompatActivity {
 
     Button backButton;
     ArrayAdapter arrayAdapter;
+    DataBaseHelper dataBaseHelper;
+    //to show the list
+    ListView listView;
 
-    MainActivity mainActivity = new MainActivity();
+    MainActivity mainActivity;
 
 
     @Override
@@ -24,6 +30,15 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
         configureBackButton();
+
+        //setting list view to id
+        listView = (ListView) findViewById(R.id.showList);
+
+        mainActivity.showCustomerOnListView(dataBaseHelper);
+        //arrayAdapter needs to be an array list
+        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, (List) mainActivity);
+        listView.setAdapter(arrayAdapter);
+
 
     }
 
@@ -48,8 +63,7 @@ public class SecondActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         //get the search icon id
         MenuItem menuItem = menu.findItem(R.id.search_icon);
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(mainActivity);
-        CustomerModel customerModel = new CustomerModel();
+
 
 //        mainActivity.showCustomerOnListView(dataBaseHelper);
 
@@ -63,7 +77,7 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 //if user types anything in search
-                dataBaseHelper.searchByUserName(customerModel);
+               arrayAdapter.getFilter().filter(newText);
                 return false;
             }
         });
