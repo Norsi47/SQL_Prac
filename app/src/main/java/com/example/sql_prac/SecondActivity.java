@@ -17,7 +17,7 @@ import java.util.List;
 public class SecondActivity extends AppCompatActivity {
 
     Button backButton;
-    ArrayAdapter arrayAdapter;
+    ArrayAdapter<CustomerModel> arrayAdapter;
     DataBaseHelper dataBaseHelper;
     //to show the list
     ListView listView;
@@ -36,17 +36,17 @@ public class SecondActivity extends AppCompatActivity {
 
 //        mainActivity.showCustomerOnListView(dataBaseHelper);
         //arrayAdapter needs to be an array list
-//        arrayAdapter = new ArrayAdapter<CustomerModel>(this, android.R.layout.simple_expandable_list_item_1, dataBaseHelper.getAllCustomer());
-//        listView.setAdapter(arrayAdapter);
-
-
-    }
-
-    public void showCustomerOnListView(DataBaseHelper dataBaseHelper1) {
-        arrayAdapter = new ArrayAdapter<CustomerModel>(SecondActivity.this,
-                android.R.layout.simple_expandable_list_item_1, dataBaseHelper1.getAllCustomer());
+        arrayAdapter = new ArrayAdapter<CustomerModel>(this, android.R.layout.simple_expandable_list_item_1, dataBaseHelper.getAllCustomer());
         listView.setAdapter(arrayAdapter);
+
+
     }
+
+//    public void showCustomerOnListView(DataBaseHelper dataBaseHelper1) {
+//        arrayAdapter = new ArrayAdapter<CustomerModel>(SecondActivity.this,
+//                android.R.layout.simple_expandable_list_item_1, dataBaseHelper1.getAllCustomer());
+//        listView.setAdapter(arrayAdapter);
+//    }
 
     //for main menu button
     private void configureBackButton() {
