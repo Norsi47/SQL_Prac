@@ -17,7 +17,7 @@ import java.util.List;
 public class SecondActivity extends AppCompatActivity {
 
     Button backButton;
-    ArrayAdapter<CustomerModel> arrayAdapter;
+//    ArrayAdapter<CustomerModel> arrayAdapter;
     DataBaseHelper dataBaseHelper;
     //to show the list
     ListView listView;
@@ -36,8 +36,8 @@ public class SecondActivity extends AppCompatActivity {
 
 //        mainActivity.showCustomerOnListView(dataBaseHelper);
         //arrayAdapter needs to be an array list
-        arrayAdapter = new ArrayAdapter<CustomerModel>(this, android.R.layout.simple_expandable_list_item_1, dataBaseHelper.getAllCustomer());
-        listView.setAdapter(arrayAdapter);
+//        arrayAdapter = new ArrayAdapter<CustomerModel>(this, android.R.layout.simple_expandable_list_item_1, dataBaseHelper.getAllCustomer());
+//        listView.setAdapter(arrayAdapter);
 
 
     }
@@ -77,13 +77,15 @@ public class SecondActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+//                arrayAdapter.getFilter().filter(query);
+
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 //if user types anything in search
-               arrayAdapter.getFilter().filter(newText);
+//               arrayAdapter.getFilter().filter(newText);
                 return false;
             }
         });

@@ -88,31 +88,31 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void searchByUserName(CustomerModel customerModel) {
-        /* Go into customer model and search by user name */
-        //do I need to save the customer in an array list first?
-
-        //sql to select all names in customer table
-        String queryString = "SELECT " + COLUMN_CUSTOMER_NAME + " FROM " +
-                CUSTOMER_TABLE + " = " + customerModel.getName();
-
-        //reading what is in the database
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery(queryString, null);
-
-       //while loop
-        StringBuffer stringBuffer = new StringBuffer();
-        while (cursor.moveToNext()) {
-            stringBuffer.append("ID" + cursor.getInt(0) + "\n");
-            stringBuffer.append("Name" + cursor.getString(1) + "\n");
-            stringBuffer.append("Age" + cursor.getInt(2) + "\n");
-
-        }
-        cursor.close();
-        sqLiteDatabase.close();
-
-
-    }
+//    public void searchByUserName(CustomerModel customerModel) {
+//        /* Go into customer model and search by user name */
+//        //do I need to save the customer in an array list first?
+//
+//        //sql to select all names in customer table
+//        String queryString = "SELECT " + COLUMN_CUSTOMER_NAME + " FROM " +
+//                CUSTOMER_TABLE + " = " + customerModel.getName();
+//
+//        //reading what is in the database
+//        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+//        Cursor cursor = sqLiteDatabase.rawQuery(queryString, null);
+//
+//       //while loop
+//        StringBuffer stringBuffer = new StringBuffer();
+//        while (cursor.moveToNext()) {
+//            stringBuffer.append("ID" + cursor.getInt(0) + "\n");
+//            stringBuffer.append("Name" + cursor.getString(1) + "\n");
+//            stringBuffer.append("Age" + cursor.getInt(2) + "\n");
+//
+//        }
+//        cursor.close();
+//        sqLiteDatabase.close();
+//
+//
+//    }
 
 
 
