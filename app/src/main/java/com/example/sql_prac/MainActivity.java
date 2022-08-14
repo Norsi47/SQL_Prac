@@ -2,8 +2,6 @@ package com.example.sql_prac;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,7 +12,6 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 
 //testing test
 //implemented search view to add search 1
@@ -76,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
         //will show created list as soon as app is opened
         //returning the method below
         showCustomerOnListView(dataBaseHelper);
-
-
 
 
         //this is the button click listener, logic to add and view all listeners

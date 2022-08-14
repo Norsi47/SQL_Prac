@@ -17,7 +17,8 @@ public class CustomerModel {
         this.age = age;
         this.isActive = isActive;
     }
-//random constructor
+
+    //random constructor
     public CustomerModel() {
     }
 

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -59,17 +58,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         long insert = sqLiteDatabase.insert(CUSTOMER_TABLE, null, contentValues);
         //if statement for if positive number return true, negative false
-        if(insert == -1) {
+        if (insert == -1) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
 
     public boolean deleteOne(CustomerModel customerModel) {
         /*if customerModel is found in database, delete it and then return true
-        * if not found return false*/
+         * if not found return false*/
 
         //writable because we delete from it
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
@@ -82,8 +80,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         //used alt enter to make "create local variable" for cursor
         if (cursor.moveToFirst()) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -115,7 +112,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 //    }
 
 
-
     //method to "SELECT all records from the table"
     public List<CustomerModel> getAllCustomer() {
         List<CustomerModel> customerModelList = new ArrayList<>();
@@ -129,8 +125,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         //this will move to the first value if true
         if (cursor.moveToFirst()) {
             /*loop through result set if there are customers
-            * create new customer objects
-            * then return list*/
+             * create new customer objects
+             * then return list*/
             do {
                 //items from database
                 //the numbers in () are the columns in the data base
@@ -138,15 +134,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String customerName = cursor.getString(1);
                 int customerAge = cursor.getInt(2);
                 //Ternary Operator, similar to if else statement
-                boolean customerActive = cursor.getInt(3) == 1 ? true: false;
+                boolean customerActive = cursor.getInt(3) == 1 ? true : false;
 
                 CustomerModel newCustomer = new CustomerModel(customerID, customerName, customerAge, customerActive);
                 customerModelList.add(newCustomer);
-            //move through database one at a time
-            }while (cursor.moveToNext());
+                //move through database one at a time
+            } while (cursor.moveToNext());
 
         } else {
-        //failer, not to do anything to the list
+            //failer, not to do anything to the list
         }
         //closes cursor  when dbd is done, so others can use it
         //sql lite does this
